@@ -2,9 +2,13 @@
 	"name": "Moodle Sidebar Plugin",
 	"version": "1.0",
 	"description": "Changes Moodle Sidebar Content",
-	"permissions": ["file://*/*"],
 	"content_scripts": [ {
-		"matches": ["https://moodle.iitd.ac.in/my/", "https://moodle.iitd.ac.in/course/*"],
+		"matches": [
+			"https://moodle.iitd.ac.in/my/", 
+			"https://moodle.iitd.ac.in/course/*",
+			"https://moodle.iitd.ac.in/mod/*",
+			"https://moodle.iitd.ac.in/grade/*"
+		],
 		"run_at": "document_idle",
 		"js": ["plugin.js"]
 	} ],
