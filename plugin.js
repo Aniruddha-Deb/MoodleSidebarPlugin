@@ -23,7 +23,7 @@ req.onsuccess = function(evt) {
 			var lbl = document.getElementById(lbl_prefix+lbl_index);
 			lbl.setAttribute("title", cursor.value.name);
 			lbl.innerHTML = cursor.value.code;
-			lbl.setAttribute("href", cursor.value.id);
+			lbl.setAttribute("href", url_prefix+cursor.value.id);
 			lbl_index++;
 			cursor.continue();
 		}
