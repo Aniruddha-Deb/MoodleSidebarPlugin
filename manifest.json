@@ -7,7 +7,8 @@
 			"https://moodle.iitd.ac.in/my/", 
 			"https://moodle.iitd.ac.in/course/*",
 			"https://moodle.iitd.ac.in/mod/*",
-			"https://moodle.iitd.ac.in/grade/*"
+			"https://moodle.iitd.ac.in/grade/*",
+			"https://moodle.iitd.ac.in/user/*"
 		],
 		"run_at": "document_idle",
 		"js": ["plugin.js"]

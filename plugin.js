@@ -1,5 +1,5 @@
 var db;
-var req = indexedDB.open("moodlesidebarplugin_db", 1);
+var req = indexedDB.open("moodlesidebarplugin_db", 2);
 
 req.onerror = function(evt) {
 	console.log("An error occured");
@@ -14,13 +14,14 @@ req.onsuccess = function(evt) {
 	
 	var lbl_index = lbl_start;
 	
-	var courseObjStore = db.transaction("courses").objectStore("courses");
+	var courseObjStore = db.transaction("courses", "readwrite").objectStore("courses");
 	
-	courseObjStore.openCursor().onsuccess = function(evt) {
+	courseObjStore.openCursor(null, "prev").onsuccess = function(evt) {
 		var cursor = event.target.result;
 		if (cursor) {
 			console.log("Got a course");
 			var lbl = document.getElementById(lbl_prefix+lbl_index);
+			if (!lbl) return;
 			lbl.setAttribute("title", cursor.value.name);
 			lbl.innerHTML = cursor.value.code;
 			lbl.setAttribute("href", url_prefix+cursor.value.id);
@@ -28,6 +29,27 @@ req.onsuccess = function(evt) {
 			cursor.continue();
 		}
 	};
+
+	if (window.location.href.startsWith("https://moodle.iitd.ac.in/user/profile.php") &&
+		window.location.href.includes("showallcourses=1")) {
+		// refresh database with courses
+		var list = document.evaluate("//dl/dt[text()='Course profiles']/../dd/ul/*/*", document, null,
+					XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+	
+		courseObjStore.clear();
+		// yes this is duplicate code, and I will refactor it.. later....
+		for (var i=0; i<list.snapshotLength; i++) {
+			var node = list.snapshotItem(i);
+			var url = new URL(node.getAttribute("href"));
+			var course = {};
+			course["id"] = url.searchParams.get("course");
+			var courseInfo = node.innerText.split(/ (.+)/);
+			course["code"] = courseInfo[0];
+			course["name"] = courseInfo[1];
+			courseObjStore.add(course);
+			console.log("Adding course " + course);
+		}
+	}
 };
 
 req.onupgradeneeded = function(evt) {
@@ -56,15 +78,11 @@ req.onupgradeneeded = function(evt) {
 				var courseInfo = node.innerText.split(/ (.+)/);
 				course["code"] = courseInfo[0];
 				course["name"] = courseInfo[1];
-				if (course["code"].startsWith("2002")) {
-					courseObjStore.add(course);
-					console.log("Adding course " + course);
-				}
+				courseObjStore.add(course);
+				console.log("Adding course " + course);
 			}
 			window.location.reload();
 		};
 		xhr.send(null);
 	};
 };
-
-

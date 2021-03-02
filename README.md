@@ -15,6 +15,10 @@ have taken into the moodle sidebar for easy navigation.
   store the set of courses the student is taking and will reload 
   the page once automatically. After this, it should work as intended.
   This also works for Batch A people now :)
+* Auto-updating: to update your course list with the plugin, go to your profile
+  and click 'view more' under the courses section. The plugin will update the 
+  course database. This is independent of semester and should work across all 
+  semesters
 * The navigation arrows will not work on the sidebar after this plugin is installed.
   This is just replacing links, and for actually navigating the course, use the
   main view or the tree view further down the sidebar
