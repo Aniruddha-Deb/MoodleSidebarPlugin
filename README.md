@@ -8,6 +8,9 @@ as well :)
 This is a small utility plugin that puts the links of the other courses you 
 have taken into the moodle sidebar for easy navigation.
 
+**For users this semester: See the auto-updating section in Features, to find 
+out how to auto-update your courses**
+
 ### Features
 
 * The plugin will only fill the courses the student is taking in the current sem.
@@ -15,7 +18,7 @@ have taken into the moodle sidebar for easy navigation.
   store the set of courses the student is taking and will reload 
   the page once automatically. After this, it should work as intended.
   This also works for Batch A people now :)
-* Auto-updating: to update your course list with the plugin, go to your profile
+* **Auto-updating**: to update your course list with the plugin, go to your profile
   and click 'view more' under the courses section. The plugin will update the 
   course database. This is independent of semester and should work across all 
   semesters
